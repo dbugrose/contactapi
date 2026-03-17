@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "bin\\Release\\net9.0\\publish",
+    "appService.defaultWebAppToDeploy": "/subscriptions/cc012775-0ee3-46ef-8804-cb8db9e14a38/resourceGroups/Academy202526dr/providers/Microsoft.Web/sites/contactmanagerdor"
+}
