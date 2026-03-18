@@ -31,7 +31,7 @@ namespace contactapi.Services
             return contact;
         }
 
-        public async Task<List<ContactModel>> GetContacts () => await _context.Contacts.ToListAsync();
+        public async Task<List<ContactModel>> GetContacts() => await _context.Contacts.ToListAsync();
 
 
         public async Task<ContactModel> GetContactById(int id)
@@ -40,25 +40,31 @@ namespace contactapi.Services
         }
 
 
-        public async Task<ContactModel?> UpdateContact(int id, string name, string email, string phone)
+        public async Task<ContactModel?> UpdateContact(ContactModel contact)
         {
 
-            if (!MailAddress.TryCreate(email, out MailAddress address))
+
+            ContactModel contactToEdit = await GetContactById(contact.Id);
+            contactToEdit.Name = contact.Name;
+            if (!MailAddress.TryCreate(contact.Email, out MailAddress address))
                 return null;
-            var contact = await GetContactById(id);
-            contact.Name = name;
-            contact.Email = address.Address;
-            contact.Phone = phone;
-            _context.Contacts.Update(contact);
+            contactToEdit.Email = contact.Email;
+            contactToEdit.Phone = contact.Phone;
+            _context.Contacts.Update(contactToEdit);
             await _context.SaveChangesAsync();
-            return contact;
+            return contactToEdit;
         }
 
         public async Task<bool> DeleteContact(int id)
         {
             var contact = await GetContactById(id);
             _context.Contacts.Remove(contact);
-            return await _context.SaveChangesAsync() != null;
+            return await _context.SaveChangesAsync() != 0;
+        }
+
+        public async Task<List<ContactModel>> GetContactBySearch(string contact)
+        {
+            return await _context.Contacts.Where(c => c.Name.Contains(contact)).ToListAsync();
         }
     }
 }

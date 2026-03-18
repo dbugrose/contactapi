@@ -39,13 +39,20 @@ namespace contactapi.Controllers
             return contact;
         }
 
-        [HttpPut("UpdateContact")]
-        public async Task<ActionResult<ContactModel>> UpdateContact(int id, string name, string email, string phone)
-        {  
-            var contact = await _services.UpdateContact(id, name, email, phone);
-            return Ok(contact);
+        [HttpGet("GetContactBySearch/{contact}")]
+        public async Task<List<ContactModel>> GetContactsBySearch(string contact)
+        {   
+            var search = await _services.GetContactBySearch(contact);
+            return search;
         }
-        [HttpDelete("DeleteContact")]
+
+        [HttpPut("UpdateContact")]
+        public async Task<ActionResult<ContactModel>> UpdateContact(ContactModel contact)
+        {  
+            var contactToEdit = await _services.UpdateContact(contact);
+            return Ok(contactToEdit);
+        }
+        [HttpDelete("DeleteContact/{id}")]
         public async Task<IActionResult> DeleteContact(int id)
         { 
            var contact = await _services.DeleteContact(id);

@@ -24,6 +24,22 @@ namespace contactapi.Migrations
                 {
                     table.PrimaryKey("PK_Contacts", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Salt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Hash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
         }
 
         /// <inheritdoc />
@@ -31,6 +47,9 @@ namespace contactapi.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Contacts");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
