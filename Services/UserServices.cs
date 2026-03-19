@@ -80,10 +80,10 @@ namespace contactapi.Services
             var SigningCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
             var tokenOptions = new JwtSecurityToken(
-                issuer: "https://rosedcsablogdb-ffdwe0b8dpg9hrdu.westus3-01.azurewebsites.net/",
-                audience: "https://rosedcsablogdb-ffdwe0b8dpg9hrdu.westus3-01.azurewebsites.net/",
+                issuer: "https://contactmanagerdor-a2bfb6cehkdxg2bp.westus3-01.azurewebsites.net/",
+                audience: "https://contactmanagerdor-a2bfb6cehkdxg2bp.westus3-01.azurewebsites.net/",
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddDays(1),
                 signingCredentials: SigningCredentials
             );
 

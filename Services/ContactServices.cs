@@ -23,7 +23,7 @@ namespace contactapi.Services
 
 
         public async Task<ContactModel> AddContact(ContactModel contact)
-        {
+        {  
             if (!MailAddress.TryCreate(contact.Email, out MailAddress address))
                 return null;
             _context.Contacts.Add(contact);
@@ -32,6 +32,8 @@ namespace contactapi.Services
         }
 
         public async Task<List<ContactModel>> GetContacts() => await _context.Contacts.ToListAsync();
+
+        public async Task<List<ContactModel>> GetContactsByUserId(int id) => await _context.Contacts.Where(user => user.UserId == id).ToListAsync();
 
 
         public async Task<ContactModel> GetContactById(int id)
@@ -42,16 +44,20 @@ namespace contactapi.Services
 
         public async Task<ContactModel?> UpdateContact(ContactModel contact)
         {
+            var contactToEdit = await GetContactById(contact.Id);
 
-
-            ContactModel contactToEdit = await GetContactById(contact.Id);
-            contactToEdit.Name = contact.Name;
-            if (!MailAddress.TryCreate(contact.Email, out MailAddress address))
+            if (contactToEdit == null)
                 return null;
+
+            if (!MailAddress.TryCreate(contact.Email, out _))
+                return null;
+
+            contactToEdit.Name = contact.Name;
             contactToEdit.Email = contact.Email;
             contactToEdit.Phone = contact.Phone;
-            _context.Contacts.Update(contactToEdit);
+
             await _context.SaveChangesAsync();
+
             return contactToEdit;
         }
 

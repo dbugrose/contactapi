@@ -11,6 +11,8 @@ namespace contactapi.Models
     public class ContactModel
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
+
         [Required(ErrorMessage = "Name is required.")]
         public string? Name { get; set; }
         [Required(ErrorMessage = "Email is required.")]

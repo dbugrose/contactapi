@@ -51,10 +51,10 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true, // Check the token's signature is valid
 
         // The expected issuer (the API that created the token)
-        ValidIssuer = "https://rosedcsablogdb-ffdwe0b8dpg9hrdu.westus3-01.azurewebsites.net/",
+        ValidIssuer = "https://contactmanagerdor-a2bfb6cehkdxg2bp.westus3-01.azurewebsites.net/",
 
         // The expected audience (who the token is intended for)
-        ValidAudience = "https://rosedcsablogdb-ffdwe0b8dpg9hrdu.westus3-01.azurewebsites.net/",
+        ValidAudience = "https://contactmanagerdor-a2bfb6cehkdxg2bp.westus3-01.azurewebsites.net/",
 
         // The key used to sign the token (must match the one used to create it)
         IssuerSigningKey = signingCredentials

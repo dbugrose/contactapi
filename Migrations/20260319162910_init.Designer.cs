@@ -11,7 +11,7 @@ using contactapi.Services.Context;
 namespace contactapi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260318170615_init")]
+    [Migration("20260319162910_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -43,6 +43,9 @@ namespace contactapi.Migrations
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
